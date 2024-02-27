@@ -1,328 +1,55 @@
-import React, { useEffect } from "react";
-import Menu from "../Menu/Menu";
-import { useNavigate } from "react-router-dom";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import MenuIcon from "@mui/icons-material/Menu";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import {
-   Grid,
-   makeStyles,
-   Typography,
-   AppBar,
-   Toolbar,
-   IconButton,
-   Badge,
-   Button,
-   Fade,
-} from "@mui/material";
-import { useSelector, useDispatch } from "react-redux";
-// import { openMenu, closeMenu } from "../../Redux/appSlice";
-import classNames from "classnames";
-// import { logOut } from "../../Redux/userSlice";
-import CloseIcon from "@mui/icons-material/Close";
-// import { fetchCartItems } from "../../Redux/cartSlice";
-// import { resetCart } from "../../Redux/cartSlice";
-
-const useStyles = makeStyles((theme) => ({
-   root: {
-      [theme.breakpoints.up("lg")]: {
-         paddingLeft: 96,
-         paddingRight: 96,
-      },
-      overflow: "hidden",
-      position: "relative",
-   },
-   logo: {
-      fontFamily: "Meow Script, cursive",
-   },
-   btnContainer: {
-      display: "flex",
-      paddingTop: theme.spacing(1),
-      paddingBottom: theme.spacing(1),
-      color: "#fff",
-   },
-   menuButton: {
-      marginRight: theme.spacing(0.5),
-
-      [theme.breakpoints.up("md")]: {
-         marginRight: theme.spacing(2),
-         display: "none",
-      },
-   },
-   link: {
-      color: "#fff",
-      textDecoration: "none",
-      cursor: "pointer",
-   },
-   flex: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-   },
-   flexEnd: {
-      justifyContent: "flex-end",
-   },
-   spaceAround: {
-      justifyContent: "space-around",
-   },
-
-   marginLeftOne: {
-      marginLeft: theme.spacing(1),
-   },
-
-   marginRightThree: {
-      marginRight: theme.spacing(3),
-   },
-   marginRightFour: {
-      marginRight: theme.spacing(1),
-      [theme.breakpoints.up("sm")]: {
-         marginRight: theme.spacing(4),
-      },
-   },
-   letterSpace: {
-      letterSpacing: 2,
-   },
-   letterSpace2: {
-      letterSpacing: 1.2,
-   },
-   whiteText: {
-      color: "#fff",
-   },
-   hideMobile: {
-      display: "none",
-      [theme.breakpoints.up("md")]: {
-         display: "flex",
-      },
-   },
-   hideMini: {
-      display: "none",
-      [theme.breakpoints.up("sm")]: {
-         display: "flex",
-      },
-   },
-   transition: {
-      transition: "0.3s all ease-out",
-      "&:hover": {
-         transform: "Scale(1.1)",
-      },
-   },
-}));
+import React from "react";
+import "../../App.css"
+import logo from '../../assets/images/integrify_logo.png';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
-   const classes = useStyles();
-   const dispatch = useDispatch();
-   const navigate = useNavigate();
-   const { isMenuOpen } = useSelector((state) => state.app);
-   const { cartLength } = useSelector((state) => state.cart);
-   const { user } = useSelector((state) => state.user);
-
-   const handleLogout = () => {
-      // dispatch(logOut());
-      // dispatch(resetCart());
-   };
-
-   useEffect(() => {
-      // dispatch(fetchCartItems());
-   }, [dispatch]);
-
-   return (
-      <>
-         <AppBar position="static" color="primary">
-            <Toolbar className={classes.root} id="back-to-top-anchor">
-               {isMenuOpen ? (
-                  <IconButton
-                     onClick={() => dispatch(
-                        // closeMenu()
-                        )}
-                     edge="start"
-                     className={classNames(
-                        classes.transition,
-                        classes.menuButton
-                     )}
-                     color="inherit"
-                  >
-                     <CloseIcon className={classes.whiteText} />
-                  </IconButton>
-               ) : (
-                  <IconButton
-                     edge="start"
-                     className={classNames(
-                        classes.transition,
-                        classes.menuButton
-                     )}
-                     color="inherit"
-                     onClick={() => dispatch(
-                        // openMenu()
-                        )}
-                  >
-                     <MenuIcon />
-                  </IconButton>
-               )}
-
-               <Typography
-                  className={classNames(
-                     classes.logo,
-                     classes.letterSpace,
-                     classes.link
-                  )}
-                  variant="h4"
-                  component="h1"
-                  translate="no"
-                  onClick={() => {
-                     dispatch(
-                        // closeMenu()
-                        );
-                     navigate("/");
-                  }}
-               >
-                  Peculiar
-               </Typography>
-
-               <Grid
-                  container
-                  spacing={10}
-                  className={classNames(classes.flex, classes.flexEnd)}
-               >
-                  <Grid
-                     item
-                     className={classNames(
-                        classes.marginRightThree,
-                        classes.hideMobile
-                     )}
-                  >
-                     <Button
-                        variant="text"
-                        onClick={() => {
-                           navigate("/products");
-                        }}
-                        className={classes.transition}
-                     >
-                        <Typography
-                           variant="body1"
-                           className={classNames(
-                              classes.whiteText,
-                              classes.letterSpace
-                           )}
-                        >
-                           Products
-                        </Typography>
-                     </Button>
-                  </Grid>
-                  <Grid
-                     item
-                     className={classNames(classes.flex, classes.spaceAround)}
-                  >
-                     <Button
-                        color="inherit"
-                        onClick={() => {
-                           navigate("/cart");
-                           dispatch(
-                              // closeMenu()
-                              );
-                        }}
-                        className={classes.marginRightFour}
-                     >
-                        <Badge badgeContent={cartLength} color="secondary">
-                           <ShoppingCartIcon />
-                        </Badge>
-                        <Typography
-                           variant="body1"
-                           className={classNames(
-                              classes.marginLeftOne,
-                              classes.letterSpace,
-                              classes.hideMobile
-                           )}
-                        >
-                           CART
-                        </Typography>
-                     </Button>
-
-                     {user ? (
-                        <div className={classes.btnContainer}>
-                           <Button
-                              onClick={() => {
-                                 navigate("/account");
-                              }}
-                              className={classNames(
-                                 classes.whiteText,
-                                 classes.hideMini
-                              )}
-                           >
-                              <AccountCircleIcon />
-                              <Typography
-                                 variant="body1"
-                                 className={classNames(
-                                    classes.marginLeftOne,
-                                    classes.letterSpace
-                                 )}
-                              >
-                                 {user.username.toUpperCase()}
-                              </Typography>
-                           </Button>
-                           <Button
-                              size="small"
-                              variant="contained"
-                              color="secondary"
-                              onClick={handleLogout}
-                              className={classes.transition}
-                           >
-                              <Typography
-                                 variant="body1"
-                                 className={classes.letterSpace2}
-                              >
-                                 Log Out
-                              </Typography>
-                           </Button>
-                        </div>
-                     ) : (
-                        <div className={classes.btnContainer}>
-                           <Button
-                              variant="text"
-                              onClick={() => navigate("/login")}
-                              size="small"
-                              disableRipple
-                              disableFocusRipple
-                           >
-                              <Typography
-                                 variant="body1"
-                                 className={classNames(
-                                    classes.whiteText,
-                                    classes.letterSpace2
-                                 )}
-                              >
-                                 Log In
-                              </Typography>
-                           </Button>
-
-                           <Button
-                              size="small"
-                              variant="contained"
-                              onClick={() => navigate("/register")}
-                              className={classNames(
-                                 classes.transition,
-                                 classes.hideMini
-                              )}
-                           >
-                              <Typography
-                                 variant="body1"
-                                 className={classes.letterSpace}
-                              >
-                                 Sign Up
-                              </Typography>
-                           </Button>
-                        </div>
-                     )}
-                  </Grid>
-               </Grid>
-            </Toolbar>
-         </AppBar>
-         {isMenuOpen && (
-            <Fade in={isMenuOpen}>
-               <Menu />
-            </Fade>
-         )}
-      </>
-   );
-};
+    return (
+        <>
+            <header className="py-4 shadow-sm bg-white">
+                <div className="container flex items-center justify-between">
+                    <Link to="/">
+                        <img src={logo} alt="Logo" className="w-32" />
+                    </Link>
+                    <div className="w-full max-w-xl relative flex">
+                        <span className="absolute left-4 top-3 text-lg text-gray-400">
+                            <i className="fa-solid fa-magnifying-glass"></i>
+                        </span>
+                        <input type="text" name="search" id="search"
+                            className="w-full border border-primary border-r-0 pl-12 py-3 pr-3 rounded-l-md focus:outline-none hidden md:flex"
+                            placeholder="search" />
+                        <button
+                            className="bg-primary border border-primary text-white px-8 rounded-r-md hover:bg-transparent hover:text-primary transition hidden md:flex" style={{ paddingTop: '2%' }}>Search</button>
+                    </div>
+                    <div className="flex items-center space-x-4">
+                        <Link to="/wishlist" className="text-center text-gray-700 hover:text-primary transition relative">
+                            <div className="text-2xl">
+                                <i className="fa-regular fa-heart"></i>
+                            </div>
+                            <div className="text-xs leading-3">Wishlist</div>
+                            <div
+                                className="absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
+                                0</div>
+                        </Link>
+                        <Link to="/shopping-cart" className="text-center text-gray-700 hover:text-primary transition relative">
+                            <div className="text-2xl">
+                                <i className="fa-solid fa-bag-shopping"></i>
+                            </div>
+                            <div className="text-xs leading-3">Cart</div>
+                            <div className="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">
+                                0</div>
+                        </Link>
+                        <Link to="/user-account" className="text-center text-gray-700 hover:text-primary transition relative">
+                            <div className="text-2xl">
+                                <i className="fa-regular fa-user"></i>
+                            </div>
+                            <div className="text-xs leading-3">Account</div>
+                        </Link>
+                    </div>
+                </div>
+            </header>
+        </>
+    );
+}
 
 export default Header;

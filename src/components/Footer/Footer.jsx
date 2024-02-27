@@ -1,124 +1,92 @@
 import React from "react";
-import {
-   IconButton,
-   Typography,
-   Grid,
-   makeStyles,
-   Link,
-} from "@mui/material";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import EmailIcon from "@mui/icons-material/Email";
-import classNames from "classnames";
-
-const useStyles = makeStyles((theme) => ({
-   container: {
-      minHeight: "auto",
-      height: 360,
-      alignItems: "center",
-      justifyContent: "center",
-      position: "relative",
-      backgroundColor: theme.palette.primary.main,
-   },
-   waveWrapper: {
-      position: "absolute",
-      top: 0,
-      left: 0,
-      width: "100%",
-      overflow: "hidden",
-      lineHeight: 0,
-   },
-   waveSvg: {
-      position: "relative",
-      display: "block",
-      width: "calc(168% + 1.3px)",
-      height: 150,
-      [theme.breakpoints.up("sm")]: {
-         width: "calc(100% + 1.3px)",
-         height: 110,
-         transform: "rotateY(180deg)",
-      },
-   },
-
-   wavePath: {
-      fill: "#fff",
-   },
-   whiteText: {
-      color: theme.palette.common.white,
-   },
-   centerText: {
-      textAlign: "center",
-   },
-   marginTopOne: {
-      marginTop: theme.spacing(1),
-   },
-}));
+import methods from '../../assets/images/methods.png';
 
 const Footer = () => {
-   const classes = useStyles();
-   const year = new Date().getFullYear();
-   return (
-      <Grid
-         component="footer"
-         container
-         direction="column"
-         className={classes.container}
-      >
-         <div className={classes.waveWrapper}>
-            <svg
-               data-name="Layer 1"
-               xmlns="http://www.w3.org/2000/svg"
-               viewBox="0 0 1200 120"
-               preserveAspectRatio="none"
-               className={classes.waveSvg}
-            >
-               <path
-                  d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
-                  className={classes.wavePath}
-               ></path>
-            </svg>
-         </div>
-         <Grid item>
-            <Link href="mailto:chinaemerema@gmail.com" target="_blank">
-               <IconButton>
-                  <EmailIcon className={classes.whiteText} />
-               </IconButton>
-            </Link>
-            <Link href="https://github.com/AgomohC" target="_blank">
-               <IconButton>
-                  <GitHubIcon className={classes.whiteText} />
-               </IconButton>
-            </Link>
-            <Link href="https://twitter.com/femto_ace" target="_blank">
-               <IconButton>
-                  <TwitterIcon className={classes.whiteText} />
-               </IconButton>
-            </Link>
-         </Grid>
-         <Grid item>
-            <Typography
-               variant="body1"
-               className={classNames(
-                  classes.centerText,
-                  classes.whiteText,
-                  classes.marginTopOne
-               )}
-            >
-               &copy; {year} Chinaemerem Agomoh.
-            </Typography>
-            <Typography
-               variant="body1"
-               className={classNames(
-                  classes.centerText,
-                  classes.whiteText,
-                  classes.marginTopOne
-               )}
-            >
-               All rights reserved
-            </Typography>
-         </Grid>
-      </Grid>
-   );
-};
+    return (
+        <>
+            {/* start footer */}
+            <footer class="bg-white pt-16 pb-12 border-t border-gray-100">
+                <div class="container grid grid-cols-1 ">
+                    <div class="col-span-1 space-y-4">
+                        {/* <img src={logo} alt="logo" class="w-30" /> */}
+                        <div class="mr-2">
+                            <p class="text-gray-500">
+                                {/* Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia, hic? */}
+                            </p>
+                        </div>
+                        <div class="flex space-x-5">
+                            <a href="#" class="text-gray-400 hover:text-gray-500"><i
+                                class="fa-brands fa-facebook-square"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-gray-500"><i
+                                class="fa-brands fa-instagram-square"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-gray-500"><i
+                                class="fa-brands fa-twitter-square"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-gray-500">
+                                <i class="fa-brands fa-github-square"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-span-2 grid grid-cols-2 gap-4">
+                        <div class="grid grid-cols-2 gap-4 md:gap-8">
+                            <div>
+                                <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Solutions</h3>
+                                <div class="mt-4 space-y-4">
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Marketing</a>
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Analitycs</a>
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Commerce</a>
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Insights</a>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Support</h3>
+                                <div class="mt-4 space-y-4">
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Pricing</a>
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Documentation</a>
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Guides</a>
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">API Status</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-8">
+                            <div>
+                                <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Solutions</h3>
+                                <div class="mt-4 space-y-4">
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Marketing</a>
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Analitycs</a>
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Commerce</a>
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Insights</a>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Support</h3>
+                                <div class="mt-4 space-y-4">
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Pricing</a>
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Documentation</a>
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Guides</a>
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">API Status</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            {/* end footer */}
+
+            {/* start copyright */}
+            <div class="bg-gray-800 py-4">
+                <div class="container flex items-center justify-between">
+                    <p class="text-white">&copy; All Right Reserved</p>
+                    <div>
+                        <img src={methods} alt="methods" class="h-5" />
+                    </div>
+                </div>
+            </div>
+            {/* end copyright */}
+        </>
+    );
+}
 
 export default Footer;

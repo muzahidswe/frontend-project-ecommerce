@@ -48,3 +48,81 @@ The Front end project must use TypeScript and Redux toolkit.
 
 - Presentation: **7/3** and **8/3/ 2024**
 - Submitting Front-end project **10am 8/3/2024**
+
+
+
+# Your Project Name
+
+This project is a React TypeScript application with Redux Toolkit for state management.
+
+## Getting Started
+
+1. Clone the repository.
+2. Install dependencies with `npm install`.
+3. Run the development server with `npm start`.
+
+## Features
+
+- **Product Page**: Display all products, view single product, filter, and sort products.
+- **Profile Page**: Accessible only if the user is logged in.
+- **Cart Page**: Add, remove, and update product quantities in the cart.
+- **Redux Store**: Implements reducers for products, user, and cart.
+
+## Testing
+
+Unit tests are implemented for Redux reducers. Run tests with `npm test`.
+
+## Deployment
+
+Deploy the application using the build command: `npm run build`. The build files will be available in the `build` directory.
+
+## API Endpoint
+
+The application uses the [Fake API](https://fakeapi.platzi.com/).
+
+## Styling
+
+The application is styled to be responsive.
+
+```
+fs17-Frontend-project
+├-- node_modules
+│
+├-- public
+│   ├-- favicon.ico
+│   ├-- index.html
+│   └-- manifest.json
+│
+└-- src
+│   |-- assets
+|   |   |-- css
+|   |   |-- images
+│   |-- components
+│   |-- misc
+│   |-- pages
+│   |-- redux
+|   |   |-- slices
+|   |   |-- store
+│   |-- routes
+│   |-- test
+│   |-- utils
+│   ├-- App.css
+│   ├-- App.js
+│   ├-- App.test.js
+│   ├-- index.css
+│   ├-- index.js
+│   ├-- logo.svg
+│   └-- setupTests.js
+│   └-- theme.js
+│
+├-- .gitignore
+├-- jest.config.js
+├-- package-lock.json
+├-- package.json
+├-- README.md
+├-- tsconfig.json
+```
+
+
+
+

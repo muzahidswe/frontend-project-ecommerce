@@ -1,19 +1,13 @@
-import Cart from "./Cart/Cart";
 import Home from "./Home/Home";
-import Login from "./Login/Login";
-import Products from "./Products/Products";
-import SignUp from "./SignUp/SignUp";
-import SingleProductPage from "./SingleProductPage/SingleProductPage";
-import Shipping from "./Shipping/Shipping";
-import Error from "./Error/Error";
+// import Login from "./Login/Login";
+// import Products from "./Products/Products";
+// import SignUp from "./SignUp/SignUp";
+// import SingleProductPage from "./SingleProductPage/SingleProductPage";
 
 export {
-   Cart,
    Home,
-   Login,
-   Products,
-   SignUp,
-   SingleProductPage,
-   Shipping,
-   Error,
+   // Login,
+   // Products,
+   // SignUp,
+   // SingleProductPage
 };
