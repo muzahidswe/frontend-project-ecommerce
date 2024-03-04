@@ -1,20 +1,41 @@
+export type ProductCategory = {
+  id: number;
+  name: string;
+  image: string;
+};
+
 export type Product = {
-    id: number;
-    name: string;
-    price: number;
-  };
-  
-  export type ProductType = {
-    id: number;
-    title: string;
-    price: number;
-    description: string;
-    images: string[];
-  };
-  
-  export type UserRegister = {
-    name: string;
-    email: string;
-    password: string;
-    avatar: string;
-  };
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  images: string[];
+  category: ProductCategory
+};
+
+export type logedUserInfo = {
+  email : string,
+  name : string,
+  image : string
+}
+
+export type ProductCart = Product & {
+  quantity: number;
+};
+
+export type UserRegister = {
+  name: string;
+  email: string;
+  password: string;
+  avatar: string;
+};
+
+export type User = UserRegister & {
+  role: "customer" | "admin";
+  id: number;
+};
+
+export interface CartItem {
+  id: string;
+  // other properties
+}

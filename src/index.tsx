@@ -6,16 +6,23 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./redux/store/store";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { AuthProvider } from "./contexts/AuthContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
         {/* <ThemeProvider> */}
-          <App />
+        <AuthProvider>
+          <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID as string}>
+            <App />
+          </GoogleOAuthProvider>
+        </AuthProvider>
         {/* </ThemeProvider> */}
       </Provider>
     </BrowserRouter>

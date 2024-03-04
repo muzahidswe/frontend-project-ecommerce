@@ -3,8 +3,7 @@ import Header from "../../components/Header/Header";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import { Link } from 'react-router-dom';
-
-import userPhoto from '../../assets/images/avatar.png';
+import UserAccountSidebar from "../../components/UserAccountSidebar/UserAccountSidebar";
 
 const UserAccountPage = () => {
     return (
@@ -26,7 +25,7 @@ const UserAccountPage = () => {
             {/* account wrapper */}
             <div className="container grid grid-cols-12 items-start gap-6 pt-4 pb-16">
                 {/* sidebar */}
-                <div className="col-span-3">
+                {/* <div className="col-span-3">
                     <div className="px-4 py-3 shadow flex items-center gap-4">
                         <div className="flex-shrink-0">
                             <img src={userPhoto} alt="profile"
@@ -106,7 +105,8 @@ const UserAccountPage = () => {
                         </div>
 
                     </div>
-                </div>
+                </div> */}
+                <UserAccountSidebar/>
                 {/* sidebar */}
 
                 {/* info */}

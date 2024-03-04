@@ -7,7 +7,7 @@ const Offer = () => {
         <>
             <div className="container pb-16">
                 <Link to="/">
-                    <img src={offer} alt="ads" class="w-full"/>
+                    <img src={offer} alt="ads" className="w-full"/>
                 </Link>
             </div>
         </>

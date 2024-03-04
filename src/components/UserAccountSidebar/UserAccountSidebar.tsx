@@ -1,20 +1,37 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
-import userPhoto from '../../assets/images/avatar.png';
+import { logedUserInfo } from "../../misc/type";
+import { DEFAULT_IMAGE_URL } from '../../utils/apiUtils';
 
 const UserAccountSidebar = () => {
+    const [userInfo, setUser] = useState<logedUserInfo>({ email: '', name: '', image: '' });
+
+    const storedUser = localStorage.getItem('userInformation');
+
+    useEffect(() => {
+        if (storedUser) {
+            const parsedUser = JSON.parse(storedUser);
+            setUser({ email: parsedUser.email, name: parsedUser.name, image: parsedUser.picture });
+        }
+    }, [storedUser]);
+
+    const handleImageError = (event: any) => {
+        // Set a default image if the original image fails to load
+        event.target.src = DEFAULT_IMAGE_URL;
+    };
+
     return (
         <>
-            {/* sidebar */ }
+            {/* sidebar */}
             <div className="col-span-3">
                 <div className="px-4 py-3 shadow flex items-center gap-4">
                     <div className="flex-shrink-0">
-                        <img src={userPhoto} alt="profile"
+                        <img src={userInfo.image} alt={userInfo ? userInfo.name : ''} onError={handleImageError}
                             className="rounded-full w-14 h-14 border border-gray-200 p-1 object-cover" />
                     </div>
                     <div className="flex-grow">
                         <p className="text-gray-600">Hello,</p>
-                        <h4 className="text-gray-800 font-medium">John Doe</h4>
+                        <h4 className="text-gray-800 font-medium">{userInfo ? userInfo.name : ''}</h4>
                     </div>
                 </div>
 
@@ -87,7 +104,7 @@ const UserAccountSidebar = () => {
 
                 </div>
             </div>
-            {/* sidebar */ }
+            {/* sidebar */}
         </>
     )
 };
