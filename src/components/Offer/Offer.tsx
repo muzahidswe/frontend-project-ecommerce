@@ -1,6 +1,6 @@
-import React from "react";
-import offer from '../../assets/images/offer.jpg';
 import { Link } from 'react-router-dom';
+
+import offer from '../../assets/images/offer.jpg';
 
 const Offer = () => {
     return (

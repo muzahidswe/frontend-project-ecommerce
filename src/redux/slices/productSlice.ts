@@ -1,4 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
 import { Product } from "../../misc/type";
 import { API_BASE_URL } from '../../utils/apiUtils';
 
@@ -32,12 +33,25 @@ export const fetchAllProductsAsync = createAsyncThunk("fetchAllProductsAsync",
         } catch (e) {
             console.log('error');
             console.error('Error occurred:', e);
-            return rejectWithValue(e);
+            return rejectWithValue(e || 'Failed to fetch products');
         }
     }
 );
 
-const ProductSlice = createSlice({
+export const fetchSingleProduct = createAsyncThunk(
+    'fetchSingleProduct',
+    async (productId: string, { rejectWithValue }) => {
+        try {
+            const jsonData = await fetch(`${url}/${productId}`);
+            const data = await jsonData.json();
+            return data;
+        } catch (error) {
+            return rejectWithValue(error);
+        }
+    }
+);
+
+const productSlice = createSlice({
     name: "product",
     initialState,
     reducers: {
@@ -79,7 +93,7 @@ const ProductSlice = createSlice({
         builder.addCase(fetchAllProductsAsync.fulfilled, (state, action) => {
             return {
                 ...state,
-                products: action.payload,
+                products: [],//action.payload,
                 loading: false,
                 error: null,
                 filteredProducts: action.payload
@@ -97,13 +111,18 @@ const ProductSlice = createSlice({
         builder.addCase(fetchAllProductsAsync.rejected, (state, action) => {
             return {
                 ...state,
-                loading: false,
-                error: action.error.message ?? "error",
+                loading: true,
+                // error: action.error.message ?? "Failed to fetch products'",
+                error: action.error.message || "Failed to fetch products'",
             };
+        });
+        // fetchSingleProduct.fulfilled
+        builder.addCase(fetchSingleProduct.fulfilled, (state, action) => {
+            state.products.push(action.payload);
         });
     },
 });
 
-const ProductReducer = ProductSlice.reducer;
-export const { searchProductByName, sortProducts } = ProductSlice.actions;
+const ProductReducer = productSlice.reducer;
+export const { searchProductByName, sortProducts } = productSlice.actions;
 export default ProductReducer;

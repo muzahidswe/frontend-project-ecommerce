@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+
 import { DEFAULT_IMAGE_URL } from '../../utils/apiUtils';
 import { AppState, useAppDispatch } from "../../redux/store/store";
-import { fetchAllProductsAsync } from '../../redux/slices/ProductSlice';
-import { addToCart } from "../../redux/slices/CartSlice";
+import { fetchAllProductsAsync } from '../../redux/slices/productSlice';
+import { addToCart } from "../../redux/slices/cartSlice";
 import { Product } from "../../misc/type";
 
 const ProductListForHome = () => {

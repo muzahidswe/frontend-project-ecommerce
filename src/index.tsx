@@ -1,13 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from "react-router-dom";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { Provider } from "react-redux";
+
 import './index.css';
 import App from './App';
+
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux";
 import store from "./redux/store/store";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 import { AuthProvider } from "./contexts/AuthContext";
+import ThemeProvider from "./components/contextAPI/ThemeContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -17,13 +20,13 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        {/* <ThemeProvider> */}
-        <AuthProvider>
-          <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID as string}>
-            <App />
-          </GoogleOAuthProvider>
-        </AuthProvider>
-        {/* </ThemeProvider> */}
+        <ThemeProvider>
+          <AuthProvider>
+            <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID as string}>
+              <App />
+            </GoogleOAuthProvider>
+          </AuthProvider>
+        </ThemeProvider>
       </Provider>
     </BrowserRouter>
   </React.StrictMode>

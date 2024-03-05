@@ -1,9 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import ProductReducer from "../slices/ProductSlice";
-import ProductCategoryReducer from "../slices/CategorySlice";
 import { useDispatch } from "react-redux";
-import cartReducer from "../slices/CartSlice";
-import UserReducer from "../slices/UserSlice";
+
+import ProductReducer from "../slices/productSlice";
+import cartReducer from "../slices/cartSlice";
+import UserReducer from "../slices/userSlice";
+import ProductCategoryReducer from "../slices/categorySlice";
 
 // store all states
 const store = configureStore({
@@ -19,10 +20,10 @@ export const useAppDispatch = () => useDispatch<typeof store.dispatch>();
 
 // save user state in local storage
 store.subscribe(() => {
-  // const currentState = store.getState();
-  // const userInformation = currentState.users.user;
+  const currentState = store.getState();
+  const userInformation = currentState.users.user;
   // store user
-  // localStorage.setItem("userInformation", JSON.stringify(userInformation));
+  localStorage.setItem("userInformation", JSON.stringify(userInformation));
 });
 
 export default store;

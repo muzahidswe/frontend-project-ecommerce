@@ -35,7 +35,12 @@ export type User = UserRegister & {
   id: number;
 };
 
+export type UserInfoType = {
+  name: string;
+  email: string;
+  picture: string;
+};
+
 export interface CartItem {
   id: string;
-  // other properties
 }

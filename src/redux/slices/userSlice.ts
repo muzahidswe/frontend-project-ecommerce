@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+
 import { User } from "../../misc/type";
 
 let userState: User | null = null;
@@ -16,17 +17,18 @@ const initialState: InitialState = {
   user: userState,
 };
 
-const UserSlice = createSlice({
+const userSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
     saveUserInformation: (state, action: PayloadAction<User>) => {
       // logic
-      state.user = action.payload;
+      // state.user = action.payload;
+      localStorage.setItem('userInformation', JSON.stringify(action.payload));
     },
   },
 });
 
-const UserReducer = UserSlice.reducer;
-export const { saveUserInformation } = UserSlice.actions;
+const UserReducer = userSlice.reducer;
+export const { saveUserInformation } = userSlice.actions;
 export default UserReducer;

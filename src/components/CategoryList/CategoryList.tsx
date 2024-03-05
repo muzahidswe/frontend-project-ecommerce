@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+
 import { DEFAULT_IMAGE_URL } from '../../utils/apiUtils';
 import { AppState, useAppDispatch } from "../../redux/store/store";
-import { fetchAllProductCategoryAsync } from '../../redux/slices/CategorySlice';
+import { fetchAllProductCategoryAsync } from '../../redux/slices/categorySlice';
 
 const CategoryList = () => {
     const dispatch = useAppDispatch();

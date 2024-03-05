@@ -1,4 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
 import { ProductCategory } from "../../misc/type";
 import { API_BASE_URL } from '../../utils/apiUtils';
 
@@ -35,7 +36,7 @@ export const fetchAllProductCategoryAsync = createAsyncThunk("fetchAllProductCat
     }
 );
 
-const CategorySlice = createSlice({
+const categorySlice = createSlice({
     name: "productCategory",
     initialState,
     reducers: {
@@ -78,6 +79,6 @@ const CategorySlice = createSlice({
     },
 });
 
-const ProductCategoryReducer = CategorySlice.reducer;
-export const { searchProductByName } = CategorySlice.actions;
+const ProductCategoryReducer = categorySlice.reducer;
+export const { searchProductByName } = categorySlice.actions;
 export default ProductCategoryReducer;

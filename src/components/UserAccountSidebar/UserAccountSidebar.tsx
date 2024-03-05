@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
+
 import { logedUserInfo } from "../../misc/type";
 import { DEFAULT_IMAGE_URL } from '../../utils/apiUtils';
 
@@ -34,7 +35,6 @@ const UserAccountSidebar = () => {
                         <h4 className="text-gray-800 font-medium">{userInfo ? userInfo.name : ''}</h4>
                     </div>
                 </div>
-
                 <div className="mt-6 bg-white shadow rounded p-4 divide-y divide-gray-200 space-y-4 text-gray-600">
                     <div className="space-y-1 pl-8">
                         <Link to="#" className="relative text-primary block font-medium capitalize transition">
@@ -53,7 +53,6 @@ const UserAccountSidebar = () => {
                             Change password
                         </Link>
                     </div>
-
                     <div className="space-y-1 pl-8 pt-4">
                         <Link to="#" className="relative hover:text-primary block font-medium capitalize transition">
                             <span className="absolute -left-8 top-0 text-base">
@@ -71,7 +70,6 @@ const UserAccountSidebar = () => {
                             My reviews
                         </Link>
                     </div>
-
                     <div className="space-y-1 pl-8 pt-4">
                         <Link to="#" className="relative hover:text-primary block font-medium capitalize transition">
                             <span className="absolute -left-8 top-0 text-base">
@@ -83,7 +81,6 @@ const UserAccountSidebar = () => {
                             voucher
                         </Link>
                     </div>
-
                     <div className="space-y-1 pl-8 pt-4">
                         <Link to="/wishlist" className="relative hover:text-primary block font-medium capitalize transition">
                             <span className="absolute -left-8 top-0 text-base">
@@ -92,7 +89,6 @@ const UserAccountSidebar = () => {
                             My wishlist
                         </Link>
                     </div>
-
                     <div className="space-y-1 pl-8 pt-4">
                         <Link to="#" className="relative hover:text-primary block font-medium capitalize transition">
                             <span className="absolute -left-8 top-0 text-base">
@@ -101,7 +97,6 @@ const UserAccountSidebar = () => {
                             Logout
                         </Link>
                     </div>
-
                 </div>
             </div>
             {/* sidebar */}

@@ -1,13 +1,14 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from 'react-router-dom';
+import axios from "axios";
+import { useDispatch } from "react-redux";
+
 import Header from "../../components/Header/Header";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
-import { Link, useNavigate } from 'react-router-dom';
 import { UserRegister } from "../../misc/type";
-import axios from "axios";
-import { useDispatch } from "react-redux";
 import { API_BASE_URL, useGoogleLoginWrapper } from '../../utils/apiUtils';
-import { saveUserInformation } from '../../redux/slices/UserSlice';
+import { saveUserInformation } from '../../redux/slices/userSlice';
 
 const SignUpPage = () => {
     const navigate = useNavigate();
@@ -37,7 +38,6 @@ const SignUpPage = () => {
                     // return user data
                     // save information to redux
                     dispatch(saveUserInformation(response.data));
-                    // console.log('userInformation.avatar ' , userInformation.avatar)
                     localStorage.setItem('userInformation', JSON.stringify({name: userInformation.name, email: userInformation.email, picture: userInformation.avatar}));
                     // navigate user to log in
                     navigate("/user-account");
@@ -111,7 +111,7 @@ const SignUpPage = () => {
                             </div>
                         </div>
                         <div className="mt-4">
-                            <button type="submit" 
+                            <button type="submit"
                                 className="block w-full py-2 text-center text-white bg-primary border border-primary rounded hover:bg-transparent hover:text-primary transition uppercase font-roboto font-medium">create
                                 account</button>
                         </div>

@@ -1,12 +1,13 @@
+import { Link } from 'react-router-dom';
+
 import Header from "../../components/Header/Header";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
-import { Link } from 'react-router-dom';
 import UserAccountSidebar from '../../components/UserAccountSidebar/UserAccountSidebar';
 import ShoppingCart from '../../components/ShoppingCart/ShoppingCart';
 
 const CartPage = () => {
-    const storedUser = localStorage.getItem('user');
+    const storedUser = localStorage.getItem('userInformation');
     return (
         <>
             <Header />

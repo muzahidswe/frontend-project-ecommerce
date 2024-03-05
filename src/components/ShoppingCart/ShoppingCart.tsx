@@ -1,10 +1,11 @@
 import { useSelector } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { AppState, useAppDispatch } from "../../redux/store/store";
 import { ProductCart } from "../../misc/type";
 import { DEFAULT_IMAGE_URL } from '../../utils/apiUtils';
-import { increaseQuantity, decreaseQuantity, removeItem } from "../../redux/slices/CartSlice";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { increaseQuantity, decreaseQuantity, removeItem } from "../../redux/slices/cartSlice";
 
 const ShoppingCart = () => {
     const dispatch = useAppDispatch();

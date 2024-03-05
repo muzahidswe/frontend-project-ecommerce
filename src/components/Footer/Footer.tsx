@@ -1,5 +1,5 @@
-import React from "react";
 import { Link } from 'react-router-dom';
+
 import methods from '../../assets/images/methods.png';
 
 const Footer = () => {
@@ -9,10 +9,8 @@ const Footer = () => {
             <footer className="bg-white pt-16 pb-12 border-t border-gray-100">
                 <div className="container grid grid-cols-1 ">
                     <div className="col-span-1 space-y-4">
-                        {/* <img src={logo} alt="logo" className="w-30" /> */}
                         <div className="mr-2">
                             <p className="text-gray-500">
-                                {/* Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia, hic? */}
                             </p>
                         </div>
                         <div className="flex space-x-5">
@@ -39,7 +37,6 @@ const Footer = () => {
                                     <Link to="#" className="text-base text-gray-500 hover:text-gray-900 block">Insights</Link>
                                 </div>
                             </div>
-
                             <div>
                                 <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">Support</h3>
                                 <div className="mt-4 space-y-4">
@@ -60,7 +57,6 @@ const Footer = () => {
                                     <Link to="#" className="text-base text-gray-500 hover:text-gray-900 block">Insights</Link>
                                 </div>
                             </div>
-
                             <div>
                                 <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">Support</h3>
                                 <div className="mt-4 space-y-4">

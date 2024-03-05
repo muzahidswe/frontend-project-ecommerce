@@ -1,33 +1,38 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useSelector } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import Header from "../../components/Header/Header";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
-import { Link, useParams } from 'react-router-dom';
 import { Product } from "../../misc/type";
 import { AppState, useAppDispatch } from "../../redux/store/store";
-import { addToCart } from "../../redux/slices/CartSlice";
-import { useSelector } from 'react-redux';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { addToCart } from "../../redux/slices/cartSlice";
+import { fetchSingleProduct } from '../../redux/slices/productSlice';
 
 const ProductDetailsPage = () => {
     const dispatch = useAppDispatch();
     const { productId } = useParams();
-    const [products, setProducts] = useState<Product | null>(null);
+
     const cart = useSelector((state: AppState) => state.carts.carts);
+    const products = useSelector((state: AppState) => state.products.products);
 
     useEffect(() => {
         const fetchProducts = async () => {
-            await fetch(`https://api.escuelajs.co/api/v1/products/${productId}`)
-                .then((res) => res.json())
-                .then((data) => setProducts(data))
-        }
-        fetchProducts();
-    }, [productId]);
+            try {
+                await dispatch(fetchSingleProduct(productId!));
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+        fetchProducts(); // Call the async function immediately
+    }, [dispatch, productId]);
 
-    function addToCartHandler(product: Product) {        
+    function addToCartHandler(product: Product) {
         const existingItem = cart.find(item => item.id === product.id);
-        if(existingItem){
+        if (existingItem) {
             toast.error('Item Added Already!', { position: 'top-right' });
         } else {
             const productCart = { ...product, quantity: 1 };
@@ -58,26 +63,26 @@ const ProductDetailsPage = () => {
             {/* end breadcrumb */}
             <ToastContainer position="top-right" />
             {/* product-detail */}
-            {products != null ? (
+            {products.length > 0 ? (
                 <>
                     <div className="container grid grid-cols-2 gap-6">
                         <div>
-                            {(products.images && products.images.length > 0) ? (
+                            {(products[0].images && products[0].images.length > 0) ? (
                                 <>
-                                    <img src={products.images ? products.images[0] : defaultImg} alt="product" className="w-full" onError={handleImageError} />
+                                    <img src={products[0].images ? products[0].images[0] : defaultImg} alt="product" className="w-full" onError={handleImageError} />
                                     <div className="grid grid-cols-5 gap-4 mt-4">
-                                        <img src={products.images ? products.images[1] : defaultImg} alt="product2" className="w-full cursor-pointer border border-primary" onError={handleImageError} />
-                                        <img src={products.images ? products.images[2] : defaultImg} alt="product2" className="w-full cursor-pointer border" onError={handleImageError} />
-                                        <img src={products.images ? products.images[0] : defaultImg} alt="product2" className="w-full cursor-pointer border" onError={handleImageError} />
-                                        <img src={products.images ? products.images[1] : defaultImg} alt="product2" className="w-full cursor-pointer border" onError={handleImageError} />
-                                        <img src={products.images ? products.images[2] : defaultImg} alt="product2" className="w-full cursor-pointer border" onError={handleImageError} />
+                                        <img src={products[0].images ? products[0].images[1] : defaultImg} alt="product2" className="w-full cursor-pointer border border-primary" onError={handleImageError} />
+                                        <img src={products[0].images ? products[0].images[2] : defaultImg} alt="product2" className="w-full cursor-pointer border" onError={handleImageError} />
+                                        <img src={products[0].images ? products[0].images[0] : defaultImg} alt="product2" className="w-full cursor-pointer border" onError={handleImageError} />
+                                        <img src={products[0].images ? products[0].images[1] : defaultImg} alt="product2" className="w-full cursor-pointer border" onError={handleImageError} />
+                                        <img src={products[0].images ? products[0].images[2] : defaultImg} alt="product2" className="w-full cursor-pointer border" onError={handleImageError} />
                                     </div>
                                 </>
                             ) :
                                 <></>}
                         </div>
                         <div>
-                            <h2 className="text-3xl font-medium uppercase mb-2">{products.title}</h2>
+                            <h2 className="text-3xl font-medium uppercase mb-2">{products[0].title}</h2>
                             <div className="flex items-center mb-4">
                                 <div className="flex gap-1 text-sm text-yellow-400">
                                     <span><i className="fa-solid fa-star"></i></span>
@@ -99,7 +104,7 @@ const ProductDetailsPage = () => {
                                 </p>
                                 <p className="space-x-2">
                                     <span className="text-gray-800 font-semibold">Category: </span>
-                                    <span className="text-gray-600">{products.title}</span>
+                                    <span className="text-gray-600">{products[0].category.name}</span>
                                 </p>
                                 <p className="space-x-2">
                                     <span className="text-gray-800 font-semibold">SKU: </span>
@@ -107,10 +112,10 @@ const ProductDetailsPage = () => {
                                 </p>
                             </div>
                             <div className="flex items-baseline mb-1 space-x-2 font-roboto mt-4">
-                                <p className="text-xl text-primary font-semibold">${products.price}</p>
-                                <p className="text-base text-gray-400 line-through">${Math.floor((products.price) * 1.15)}</p>
+                                <p className="text-xl text-primary font-semibold">${products[0].price}</p>
+                                <p className="text-base text-gray-400 line-through">${Math.floor((products[0].price) * 1.15)}</p>
                             </div>
-                            <p className="mt-4 text-gray-600 text-justify" >{products.description} </p>
+                            <p className="mt-4 text-gray-600 text-justify" >{products[0].description} </p>
                             <div className="mt-4">
                                 <h3 className="text-sm text-gray-800 uppercase mb-1">Quantity</h3>
                                 <div className="flex border border-gray-300 text-gray-600 divide-x divide-gray-300 w-max">
@@ -120,11 +125,7 @@ const ProductDetailsPage = () => {
                                 </div>
                             </div>
                             <div className="mt-6 flex gap-3 border-b border-gray-200 pb-5 pt-5">
-                                {/* <Link to="/"
-                                    className="bg-primary border border-primary text-white px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:bg-transparent hover:text-primary transition">
-                                    <i className="fa-solid fa-bag-shopping"></i> Add to cart
-                                </Link> */}
-                                <button onClick={() => addToCartHandler(products)}
+                                <button onClick={() => addToCartHandler(products[0])}
                                     className="bg-primary border border-primary text-white px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:bg-transparent hover:text-primary transitionn">Add
                                     to cart
                                 </button>

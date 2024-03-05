@@ -5,8 +5,11 @@ import { useAuth } from '../../contexts/AuthContext';
 const PrivateRoute = () => {
     const { user } = useAuth();
 
-    // Check if the user is authenticated
     const isAuthenticated = !!user;
+
+    const storedUser = localStorage.getItem('userInformation');
+    console.log('storedUser');
+    console.log(storedUser);
 
     return (
         <Route
