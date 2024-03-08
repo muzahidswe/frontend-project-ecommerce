@@ -7,12 +7,15 @@ import Header from "../../components/Header/Header";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import { UserRegister } from "../../misc/type";
-import { API_BASE_URL, useGoogleLoginWrapper } from '../../utils/apiUtils';
+import { useGoogleLoginWrapper } from '../../utils/apiUtils';
 import { saveUserInformation } from '../../redux/slices/userSlice';
+import { API_BASE_URL } from '../../utils/apiUtils';
 
 const SignUpPage = () => {
-    const navigate = useNavigate();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const [isFormValid, setIsFormValid] = useState(false);
 
     const [userInformation, setUserInformation] = useState<UserRegister>({
         name: "",
@@ -21,25 +24,48 @@ const SignUpPage = () => {
         avatar: "",
     });
 
-    function onChangeHandler(event: React.ChangeEvent<HTMLInputElement>) {
-        setUserInformation({
-            ...userInformation,
-            [event.target.name]: event.target.value,
-        });
+    const [errors, setErrors] = useState({
+        name: "",
+        email: "",
+        password: "",
+        avatar: "",
+    });
+
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+        let error = '';
+        if (name === 'name' && !value.trim()) {
+            error = 'Name is required';
+        }
+        if (name === 'email' && !value.trim()) {
+            error = 'Email is required';
+        }
+        if (name === 'password' && !value.trim()) {
+            error = 'Password is required';
+        }
+        if (name === 'avatar' && !value.trim()) {
+            error = 'Picture URL is required';
+        }
+        setErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
+
+        const isCurrentFormValid = Object.values(errors).every((error) => !error);
+        setIsFormValid(isCurrentFormValid);
+
+        setUserInformation((prevData) => ({
+            ...prevData,
+            [name]: value.trim(),
+        }));
     }
 
-    function onClickHandler(event: any) {
+    const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
         // send user information to API
         axios
             .post(`${API_BASE_URL}users/`, userInformation)
             .then((response) => {
-                if (response.status === 201) {
-                    // return user data
-                    // save information to redux
+                if (response.status === 201) {                  
                     dispatch(saveUserInformation(response.data));
-                    localStorage.setItem('userInformation', JSON.stringify({name: userInformation.name, email: userInformation.email, picture: userInformation.avatar}));
-                    // navigate user to log in
+                    localStorage.setItem('userInformation', JSON.stringify({name: userInformation.name, email: userInformation.email, avatar: userInformation.avatar}));
                     navigate("/user-account");
                 }
             })
@@ -73,32 +99,35 @@ const SignUpPage = () => {
                     <p className="text-gray-600 mb-6 text-sm">
                         Register for new cosutumer
                     </p>
-                    {/* <form action="javascript:void(0);" method="post" autoComplete="off"> */}
-                    <form onSubmit={onClickHandler} autoComplete="off">
+                    <form onSubmit={handleSubmit} autoComplete="off">
                         <div className="space-y-2">
                             <div>
                                 <label htmlFor="name" className="text-gray-600 mb-2 block">Full Name</label>
-                                <input type="text" name="name" id="name" onChange={onChangeHandler} value={userInformation.name}
+                                <input type="text" name="name" id="name" onChange={handleInputChange} defaultValue={userInformation.name}
                                     className="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400"
-                                    placeholder="fulan fulana" />
+                                    placeholder="fulan fulana" disabled={false}/>
+                                {errors.name && <span className="text-red-500">{errors.name}</span>}
                             </div>
                             <div>
                                 <label htmlFor="email" className="text-gray-600 mb-2 block">Email address</label>
-                                <input type="email" name="email" id="email" onChange={onChangeHandler} value={userInformation.email}
+                                <input type="email" name="email" id="email" onChange={handleInputChange} defaultValue={userInformation.email}
                                     className="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400"
-                                    placeholder="youremail.@domain.com" />
+                                    placeholder="youremail.@domain.com" disabled={false}/>
+                                {errors.email && <span className="text-red-500">{errors.email}</span>}
                             </div>
                             <div>
                                 <label htmlFor="password" className="text-gray-600 mb-2 block">Password</label>
-                                <input type="password" name="password" id="password" onChange={onChangeHandler} value={userInformation.password}
+                                <input type="password" name="password" id="password" onChange={handleInputChange} defaultValue={userInformation.password}
                                     className="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400"
-                                    placeholder="*******" />
+                                    placeholder="*******" disabled={false}/>
+                                {errors.password && <span className="text-red-500">{errors.password}</span>}
                             </div>
                             <div>
                                 <label htmlFor="avatar" className="text-gray-600 mb-2 block">Avatar</label>
-                                <input type="text" name="avatar" id="avatar" onChange={onChangeHandler} value={userInformation.avatar}
+                                <input type="text" name="avatar" id="avatar" onChange={handleInputChange} defaultValue={userInformation.avatar}
                                     className="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400"
-                                    placeholder="Avatar" />
+                                    placeholder="Avatar" disabled={false} />
+                                {errors.avatar && <span className="text-red-500">{errors.avatar}</span>}
                             </div>
                         </div>
                         <div className="mt-6">
@@ -111,7 +140,7 @@ const SignUpPage = () => {
                             </div>
                         </div>
                         <div className="mt-4">
-                            <button type="submit"
+                            <button type="submit" disabled={!isFormValid}
                                 className="block w-full py-2 text-center text-white bg-primary border border-primary rounded hover:bg-transparent hover:text-primary transition uppercase font-roboto font-medium">create
                                 account</button>
                         </div>

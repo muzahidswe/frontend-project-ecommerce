@@ -26,4 +26,15 @@ store.subscribe(() => {
   localStorage.setItem("userInformation", JSON.stringify(userInformation));
 });
 
+export const createNewStore = () => {
+  return configureStore({
+    reducer: {
+      products: ProductReducer,
+      categories: ProductCategoryReducer,
+      users: UserReducer,
+      cart: cartReducer,
+    },
+  });
+};
+
 export default store;

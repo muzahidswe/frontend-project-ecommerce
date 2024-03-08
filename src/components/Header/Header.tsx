@@ -10,7 +10,8 @@ import logo from '../../assets/images/integrify_logo.png';
 
 const Header = () => {
     const storedUser = localStorage.getItem('userInformation');
-
+    const userInformation = storedUser !== undefined && storedUser !== null ? JSON.parse(storedUser) : {};
+  
     const cartItemsList = useSelector((state: AppState) => state.carts.carts);
     const { toggleTheme, theme } = useTheme();
 
@@ -45,7 +46,7 @@ const Header = () => {
                             )}
 
                         </Link>
-                        {storedUser != null ? (
+                        {(userInformation && Object.keys(userInformation).length > 0) ? (
                             <>
                                 <Link to="/user-account" className="text-center text-gray-700 hover:text-primary transition relative">
                                     <div className="text-2xl">

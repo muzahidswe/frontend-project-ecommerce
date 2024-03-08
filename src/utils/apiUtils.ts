@@ -29,9 +29,16 @@ const useGoogleLoginWrapper = () => {
       );
       const userData = await res.json();
       // Call your login function with user data
-      console.log('userData');
-      console.log(userData);
-      login(userData);
+
+      const loggedUserData = {
+        "email": userData.email,
+        "name": userData.name,
+        "avatar": userData.picture,
+        "role": "admin",
+        "id": userData.id
+      }
+
+      login(loggedUserData);
       // handle data
     },
   });

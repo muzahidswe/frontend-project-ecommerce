@@ -1,90 +1,89 @@
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/6764957/52892445-9045cf80-3136-11e9-9d5e-a1c47e505372.png" width="100" alt="project-logo">
+</p>
+<p align="center">
+    <h1 align="center">fs17-Frontend-project E-Commerce Project</h1>
+</p>
+<p align="center"> <em>Developed with the software and tools below.</em>
+</p>
+<p align="center">
+<img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React">
+<img src="https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white" alt="Redux">
+<img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript">
+<img src="https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white" alt="React Router">
+<img src="https://img.shields.io/badge/tailwindcss-0F172A?style=for-the-badge&logo=mui&logoColor=white" alt="tailwindcss">
+<img src="https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white" alt="Jest">
+</p>
+
 # Frontend project
 
-This repository for the Frontend project to build an e-commerce website.
+This project is developed using ReactJS, TypeScript, React Router Dom, Redux Toolkit, Tailwind CSS following a structured architecture that includes components, hooks, screens and unit testing. The main purpose of this project is to create a e-commerce website where customers can easily explore, choose and purchase products online. Context API is utilized for switching between light and dark themes, enhancing user experience and accessibility.
 
-## Requirements
+## 🌏 Live-Url
 
-### Basic requirements
+- https://kaleidoscopic-moxie-cfbb6b.netlify.app/
 
-The Front end project must use TypeScript and Redux toolkit.
+## 📷 App Screenshots
 
-1. Use the API endpoint `https://fakeapi.platzi.com/`.
+![App Screenshot](screenshots/home.png)
+![App Screenshot](screenshots/all-products.png)
+![App Screenshot](screenshots/signup.png)
+![App Screenshot](screenshots/login.png)
+![App Screenshot](screenshots/user-profile.png)
+![App Screenshot](screenshots/add-product.png)
+![App Screenshot](screenshots/edit-product.png)
+![App Screenshot](screenshots/cart.png)
 
-2. Create at lease 4 pages (can be more if you want): Page for all products, product page, profile page (only available if user logins), and cart page (cart page could be a page or a modal)
+## 📍 API Reference
 
-3. Create Redux store for following features:
+For the development of this project, we have used the [Platzi API](https://fakeapi.platzi.com/) as a key API reference.
 
-   - product reducer: get all products, find a single products, filter products by categories, sort products by price. Create, update and delete a product (enable update & delete features only for admin of the webapp)
-   - user reducer: register and login
-   - cart reducer: add product to cart, remove products, update products's quantity in cart
+## 🚀 Getting Started
 
-4. When adding routers to your application, set certain routes to be private. For example, route to user profile page should not be accessible if user has not logged in.
+### ⚙️ Install
 
-5. Styling: must have responsive
+1. Clone the repository:
 
-6. Implement unit testing for the reducers
-
-7. **Deploy** the application and rewrite README file.
-
-### Additional features:
-
-- Use Context API to switch theme
-- Use pagination when fetching/displaying all the products
-- Implement performance optimization where applicable
-
-## Grading (1-5)
-
-1: Late submission or not complete basic requirements
-
-2: Basic requirement + Presentation
-
-3: Folder structure + follow convention(naming convention ,loading, error) + some additional features
-
-4: All additional features + reusable logic + custom hook
-
-5: UI-UX (for example: send alert when user add same product) + styling (animation or transition, scroll to top) + advanced feature (google log in)
-
-## Deadline
-
-- Presentation: **7/3** and **8/3/ 2024**
-- Submitting Front-end project **10am 8/3/2024**
-
-
-
-# Your Project Name
-
-This project is a React TypeScript application with Redux Toolkit for state management.
-
-## Getting Started
-
-1. Clone the repository.
-2. Install dependencies with `npm install`.
-3. Run the development server with `npm start`.
-
-## Features
-
-- **Product Page**: Display all products, view single product, filter, and sort products.
-- **Profile Page**: Accessible only if the user is logged in.
-- **Cart Page**: Add, remove, and update product quantities in the cart.
-- **Redux Store**: Implements reducers for products, user, and cart.
-
-## Testing
-
-Unit tests are implemented for Redux reducers. Run tests with `npm test`.
-
-## Deployment
-
-Deploy the application using the build command: `npm run build`. The build files will be available in the `build` directory.
-
-## API Endpoint
-
-The application uses the [Fake API](https://fakeapi.platzi.com/).
-
-## Styling
-
-The application is styled to be responsive.
-
+```sh
+git clone https://github.com/muzahidswe/fs17-Frontend-project.git
 ```
+
+2. Change to the project directory:
+
+```sh
+cd fs17-Frontend-project
+```
+
+3. Install the dependencies:
+
+```sh
+npm install
+```
+
+### ► Run Project
+
+Use the following command to run:
+
+```sh
+npm start
+```
+
+### 🧪 Unit Testing using JEST
+
+Use the following command to run tests:
+
+```sh
+npm test or npx jest
+```
+
+Tests for this project are written using Jest, with the assistance of [msw](https://mswjs.io/) for mocking the server. The project utilizes three mock servers for handling products, categories, and users respectively. The tests are structured to cover various aspects of the application's functionality, including unit tests.
+
+![App Screenshot](screenshots/test-output.png)
+
+---
+## 📂 Folder Structure
+
+```sh
 fs17-Frontend-project
 ├-- node_modules
 │
@@ -97,7 +96,9 @@ fs17-Frontend-project
 │   |-- assets
 |   |   |-- css
 |   |   |-- images
+|   |   |-- js
 │   |-- components
+│   |-- contexts
 │   |-- misc
 │   |-- pages
 │   |-- redux
@@ -105,6 +106,10 @@ fs17-Frontend-project
 |   |   |-- store
 │   |-- routes
 │   |-- test
+|   |   |-- cart
+|   |   |-- categories
+|   |   |-- products
+|   |   |-- user
 │   |-- utils
 │   ├-- App.css
 │   ├-- App.js
@@ -121,8 +126,6 @@ fs17-Frontend-project
 ├-- package.json
 ├-- README.md
 ├-- tsconfig.json
+
 ```
-
-
-
-
+---

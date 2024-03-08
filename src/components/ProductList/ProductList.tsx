@@ -14,7 +14,7 @@ import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
 const ProductList = () => {
     const dispatch = useAppDispatch();
-    const productList = useSelector((state: AppState) => state.products.filteredProducts);
+    const productList = useSelector((state: AppState) => state.products.products);
     const cart = useSelector((state: AppState) => state.carts.carts);
     const loading = useSelector((state: AppState) => state.products.loading);
     const error = useSelector((state: AppState) => state.products.error);
@@ -75,10 +75,10 @@ const ProductList = () => {
                     <>
                         <ToastContainer position="top-right" />
                         <div className="grid md:grid-cols-3 grid-cols-2 gap-6">
-                            {productList.map((item, index) => (
+                            {productList.length > 0 && productList.map((item, index) => (
                                 <div key={item.id} className="bg-white shadow rounded overflow-hidden group">
                                     <div className="relative">
-                                        <img src={item.images[0]} alt={item.title} className="w-full" onError={handleImageError} />
+                                        <img src={(item.images[0] as string)?.replace(/[[\]"\s]/g, '')} alt={item.title} className="w-full"  onError={handleImageError}/>
                                         <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center 
                                 justify-center gap-2 opacity-0 group-hover:opacity-100 transition">
                                             <Link to={`/products/${item.id}`}
@@ -147,8 +147,6 @@ const ProductList = () => {
                     </>
                 )}
             </div>
-
-
         </>
     );
 }

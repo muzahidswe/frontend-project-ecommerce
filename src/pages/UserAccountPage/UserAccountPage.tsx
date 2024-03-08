@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Header from "../../components/Header/Header";
 import Navbar from "../../components/Navbar/Navbar";
@@ -6,6 +6,14 @@ import Footer from "../../components/Footer/Footer";
 import UserAccountSidebar from "../../components/UserAccountSidebar/UserAccountSidebar";
 
 const UserAccountPage = () => {
+    const navigate = useNavigate();
+    const storedUser = localStorage.getItem('userInformation');
+    const userInformation = storedUser !== undefined && storedUser !== null ? JSON.parse(storedUser) : {};
+
+    if(userInformation === 'null' || Object.keys(userInformation).length === 0){
+        navigate('/login');
+    }
+    
     return (
         <>
             <Header />
@@ -111,7 +119,6 @@ const UserAccountPage = () => {
 
                 {/* info */}
                 <div className="col-span-9 grid grid-cols-3 gap-4">
-
                     <div className="shadow rounded bg-white px-4 pt-6 pb-8">
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="font-medium text-gray-800 text-lg">Personal Profile</h3>

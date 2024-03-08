@@ -2,7 +2,8 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     const storedUser = localStorage.getItem('userInformation');
-    
+    const userInformation = storedUser !== undefined && storedUser !== null ? JSON.parse(storedUser) : {};
+
     return (
         <>
             {/* start navbar */}
@@ -22,9 +23,16 @@ const Navbar = () => {
                             <Link to="#" className="text-gray-200 hover:text-white transition">Contact us</Link>
                         </div>
                         <div className="flex items-center space-x-6 capitalize">
-                            {storedUser != null ? (
+                            {(userInformation && Object.keys(userInformation).length > 0) ? (
                                 <>
-                                    <Link to="#" className="text-gray-200 hover:text-white transition"><i className="fa-solid fa-plus"></i> Add Product</Link>
+                                    {(userInformation.role && userInformation.role === 'admin') ? (
+                                        <>
+                                            <Link to="/all-products" className="text-gray-200 hover:text-white transition"><i className="fa-solid fa-cog"></i> Manage Product</Link>
+                                        </>
+                                    ) : (
+                                        <>
+                                        </>
+                                    )}
                                     <Link to="/logout" className="text-gray-200 hover:text-white transition"><i className="fa-solid fa-right-from-bracket"></i> Logout</Link>
                                 </>
                             ) : (

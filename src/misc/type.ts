@@ -44,3 +44,21 @@ export type UserInfoType = {
 export interface CartItem {
   id: string;
 }
+
+export type Category = {
+  id: number;
+  name?: string;
+  image?: string;
+  creationAt?: string;
+  updatedAt?: string;
+};
+
+export type ShoppingCartItem = Product & {
+  quantity: number;
+};
+
+export function isValidURL(url: string) {
+  // Regular expression for a valid URL
+  const urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/;
+  return urlRegex.test(url);
+}

@@ -12,7 +12,7 @@ const UserAccountSidebar = () => {
     useEffect(() => {
         if (storedUser) {
             const parsedUser = JSON.parse(storedUser);
-            setUser({ email: parsedUser.email, name: parsedUser.name, image: parsedUser.picture });
+            setUser({ email: parsedUser.email, name: parsedUser.name, image: parsedUser.avatar });
         }
     }, [storedUser]);
 

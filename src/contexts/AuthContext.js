@@ -9,9 +9,6 @@ export const AuthProvider = ({ children }) => {
 
   const login = (userData) => {
     // Set user data in state
-    console.log('userData login');
-      console.log(userData);
-    setUser(userData);
     // localStorage.removeItem('userInformation');
     localStorage.setItem('userInformation', JSON.stringify(userData));
     navigate('/user-account');

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
@@ -16,13 +16,17 @@ const ProductDetailsPage = () => {
     const dispatch = useAppDispatch();
     const { productId } = useParams();
 
+    const [products, setProducts] = useState<Product>({ id: 0, title: '', price: 0, description: '', images: [], category: {id: 0, name: '', image: ''} });
+
     const cart = useSelector((state: AppState) => state.carts.carts);
-    const products = useSelector((state: AppState) => state.products.products);
+    // const products = useSelector((state: AppState) => state.products.products);
 
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                await dispatch(fetchSingleProduct(productId!));
+                // await dispatch(fetchSingleProduct(productId!));
+                const productData = await dispatch(fetchSingleProduct(productId!));
+                setProducts(productData.payload);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -63,26 +67,26 @@ const ProductDetailsPage = () => {
             {/* end breadcrumb */}
             <ToastContainer position="top-right" />
             {/* product-detail */}
-            {products.length > 0 ? (
+            {products ? (
                 <>
                     <div className="container grid grid-cols-2 gap-6">
                         <div>
-                            {(products[0].images && products[0].images.length > 0) ? (
+                            {(products.images && products.images.length > 0) ? (
                                 <>
-                                    <img src={products[0].images ? products[0].images[0] : defaultImg} alt="product" className="w-full" onError={handleImageError} />
+                                    <img src={products.images ? (products.images[0] as string)?.replace(/[[\]"\s]/g, '') : defaultImg} alt="product" className="w-full" onError={handleImageError} />
                                     <div className="grid grid-cols-5 gap-4 mt-4">
-                                        <img src={products[0].images ? products[0].images[1] : defaultImg} alt="product2" className="w-full cursor-pointer border border-primary" onError={handleImageError} />
-                                        <img src={products[0].images ? products[0].images[2] : defaultImg} alt="product2" className="w-full cursor-pointer border" onError={handleImageError} />
-                                        <img src={products[0].images ? products[0].images[0] : defaultImg} alt="product2" className="w-full cursor-pointer border" onError={handleImageError} />
-                                        <img src={products[0].images ? products[0].images[1] : defaultImg} alt="product2" className="w-full cursor-pointer border" onError={handleImageError} />
-                                        <img src={products[0].images ? products[0].images[2] : defaultImg} alt="product2" className="w-full cursor-pointer border" onError={handleImageError} />
+                                        <img src={products.images ? (products.images[1] as string)?.replace(/[[\]"\s]/g, '') : defaultImg} alt="product2" className="w-full cursor-pointer border border-primary" onError={handleImageError} />
+                                        <img src={products.images ? (products.images[2] as string)?.replace(/[[\]"\s]/g, '') : defaultImg} alt="product2" className="w-full cursor-pointer border" onError={handleImageError} />
+                                        <img src={products.images ? (products.images[0] as string)?.replace(/[[\]"\s]/g, '') : defaultImg} alt="product2" className="w-full cursor-pointer border" onError={handleImageError} />
+                                        <img src={products.images ? (products.images[1] as string)?.replace(/[[\]"\s]/g, '') : defaultImg} alt="product2" className="w-full cursor-pointer border" onError={handleImageError} />
+                                        <img src={products.images ? (products.images[2] as string)?.replace(/[[\]"\s]/g, '') : defaultImg} alt="product2" className="w-full cursor-pointer border" onError={handleImageError} />
                                     </div>
                                 </>
                             ) :
                                 <></>}
                         </div>
                         <div>
-                            <h2 className="text-3xl font-medium uppercase mb-2">{products[0].title}</h2>
+                            <h2 className="text-3xl font-medium uppercase mb-2">{products.title}</h2>
                             <div className="flex items-center mb-4">
                                 <div className="flex gap-1 text-sm text-yellow-400">
                                     <span><i className="fa-solid fa-star"></i></span>
@@ -104,7 +108,7 @@ const ProductDetailsPage = () => {
                                 </p>
                                 <p className="space-x-2">
                                     <span className="text-gray-800 font-semibold">Category: </span>
-                                    <span className="text-gray-600">{products[0].category.name}</span>
+                                    <span className="text-gray-600">{products.category.name}</span>
                                 </p>
                                 <p className="space-x-2">
                                     <span className="text-gray-800 font-semibold">SKU: </span>
@@ -112,10 +116,10 @@ const ProductDetailsPage = () => {
                                 </p>
                             </div>
                             <div className="flex items-baseline mb-1 space-x-2 font-roboto mt-4">
-                                <p className="text-xl text-primary font-semibold">${products[0].price}</p>
-                                <p className="text-base text-gray-400 line-through">${Math.floor((products[0].price) * 1.15)}</p>
+                                <p className="text-xl text-primary font-semibold">${products.price}</p>
+                                <p className="text-base text-gray-400 line-through">${Math.floor((products.price) * 1.15)}</p>
                             </div>
-                            <p className="mt-4 text-gray-600 text-justify" >{products[0].description} </p>
+                            <p className="mt-4 text-gray-600 text-justify" >{products.description} </p>
                             <div className="mt-4">
                                 <h3 className="text-sm text-gray-800 uppercase mb-1">Quantity</h3>
                                 <div className="flex border border-gray-300 text-gray-600 divide-x divide-gray-300 w-max">
@@ -125,7 +129,7 @@ const ProductDetailsPage = () => {
                                 </div>
                             </div>
                             <div className="mt-6 flex gap-3 border-b border-gray-200 pb-5 pt-5">
-                                <button onClick={() => addToCartHandler(products[0])}
+                                <button onClick={() => addToCartHandler(products)}
                                     className="bg-primary border border-primary text-white px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:bg-transparent hover:text-primary transitionn">Add
                                     to cart
                                 </button>

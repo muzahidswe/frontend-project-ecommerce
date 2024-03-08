@@ -10,15 +10,17 @@ import { searchProductByName, sortProducts } from "../../redux/slices/productSli
 
 const ProductPage = () => {
     const [userInput, setUserInput] = useState("");
+    const [sortedOption, setSortedOption] = useState('default');
+
     const dispatch = useDispatch();
     const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {   
         setUserInput(event.target.value);
         dispatch(searchProductByName(event.target.value));
     }
-    const sortedOption = ''; // Set your selected sorting option
 
     const handleSortChange = (event: any) => {
         const selectedOption = event.target.value;
+        setSortedOption(selectedOption);
         dispatch(sortProducts(selectedOption));
     };
     return (
@@ -162,7 +164,7 @@ const ProductPage = () => {
                             value={sortedOption}
                             onChange={handleSortChange}
                             className="w-44 text-sm text-gray-600 py-3 px-4 border-gray-300 shadow-sm rounded focus:ring-primary focus:border-primary">
-                            <option value="">Default sorting</option>
+                            <option value="default">Default sorting</option>
                             <option value="price-low-to-high">Price low to high</option>
                             <option value="price-high-to-low">Price high to low</option>
                         </select>
