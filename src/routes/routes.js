@@ -26,14 +26,15 @@ const AppRoutes = () => {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/logout" element={<LogoutPage />} />
             <Route path="/signup" element={<SignUpPage />} />
-            <Route
+            <Route path="/user-account" element={<UserAccountPage />} />
+            {/* <Route
                path="/user-account"
                element={
                   <>
                      {(storedUser != null ? <UserAccountPage /> : <Navigate to="/login" />)}
                   </>
                }
-            />
+            /> */}
             <Route path="/all-products" element={<ManageAllProductPage />} />
             <Route path="/add-product" element={<AddProduct />} />
             <Route path="/edit-product/:productId" element={<EditProduct />} />
